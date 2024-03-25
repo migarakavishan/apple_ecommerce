@@ -10,6 +10,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    final size = MediaQuery.sizeOf(context);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset('assets/images/logo.png', width: size.width * 0.2,),
+      ),
+    );
   }
 }
