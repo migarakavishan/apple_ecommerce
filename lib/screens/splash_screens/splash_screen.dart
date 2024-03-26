@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,14 +14,30 @@ class _SplashScreenState extends State<SplashScreen> {
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
+      body: Stack(
         children: [
           Center(
             child: Image.asset(
               'assets/images/logo.png',
-              width: size.width * 0.2,
+              width: size.width * 0.3,
             ),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsetsDirectional.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CupertinoActivityIndicator(color: Colors.black,),
+                  Text(
+                    'From Apple.Inc',
+                    style: TextStyle(color: Colors.grey.shade700),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
