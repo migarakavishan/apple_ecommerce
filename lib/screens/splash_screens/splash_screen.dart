@@ -13,8 +13,15 @@ class _SplashScreenState extends State<SplashScreen> {
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Image.asset('assets/images/logo.png', width: size.width * 0.2,),
+      body: Column(
+        children: [
+          Center(
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: size.width * 0.2,
+            ),
+          ),
+        ],
       ),
     );
   }
