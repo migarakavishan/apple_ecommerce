@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:apple_ecommerce/screens/auth_screens/auth_screen.dart';
+import 'package:apple_ecommerce/utils/custom_navigator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +13,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 3), () {
+      CustomNavigator.pushReplacement(context, const AuthScreen());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -29,7 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const CupertinoActivityIndicator(color: Colors.black,),
+                  const CupertinoActivityIndicator(
+                    color: Colors.black,
+                  ),
                   Text(
                     'From Apple.Inc',
                     style: TextStyle(color: Colors.grey.shade700),
