@@ -53,6 +53,29 @@ class _AuthScreenState extends State<AuthScreen> {
                       fontWeight: FontWeight.w400,
                       color: Colors.grey.shade800),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextField(
+                    style: const TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
+                    decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: const TextStyle(color: Colors.white),
+                        prefixIcon: const Icon(
+                          Icons.email,
+                          color: Colors.white70,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                        fillColor: Colors.grey.shade600,
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(50))),
+                  ),
+                )
               ],
             ),
           )
