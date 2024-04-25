@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({
-    super.key,
-    required this.hint,
-    required this.prefixIcon,
-    this.isPassword = false,
-    this.controller
-  });
+  const CustomTextField(
+      {super.key,
+      required this.hint,
+      required this.prefixIcon,
+      this.isPassword = false,
+      this.controller});
 
   final String hint;
   final IconData prefixIcon;
