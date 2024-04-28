@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/custom_app_bar.dart';
+import 'widgets/slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,23 +24,15 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             const CustomAppBar(),
-            CarouselSlider(
-              options: CarouselOptions(height: 160.0),
-              items: DemoData.sliderImages.map((url) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      width: size.width,
-                      height: 160,
-                      decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(url))),
-                    );
-                  },
-                );
-              }).toList(),
-            )
+            const SizedBox(
+              height: 8,
+            ),
+            NewSlider(size: size)
           ],
         ),
       )),
     );
   }
 }
+
+
