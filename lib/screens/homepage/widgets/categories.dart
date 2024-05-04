@@ -36,14 +36,14 @@ class Categories extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: SizedBox(
                         width: 120,
-                        height: 120,
+                        height: 100,
                         child: Stack(
                           children: [
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Container(
                                 width: 120,
-                                height: 80,
+                                height: 60,
                                 decoration: BoxDecoration(
                                     color: Colors.grey.shade700,
                                     borderRadius:
