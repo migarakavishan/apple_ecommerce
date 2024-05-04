@@ -20,27 +20,27 @@ class DemoData {
   static List<Product> products = [
     Product(
         image:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-3-202309?wid=728&hei=666&fmt=png-alpha&.v=1693081542150',
+            'https://static.doji.co/product/medias/smartphones/apple/iphone-15-pro/1-front-back-natural-titanium.png',
         title: 'iPhone 15 Pro',
         price: 999),
     Product(
         image:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-3-202203?wid=728&hei=666&fmt=png-alpha&.v=1644988765122',
+            'https://static.doji.co/product/medias/smartphones/apple/iphone-13/back_front-blue.png',
         title: 'iPhone 13',
         price: 860),
     Product(
         image:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-3-202203?wid=728&hei=666&fmt=png-alpha&.v=1644987579761',
+            'https://static.doji.co/product/medias/smartphones/apple/iphone-se-(2020)/1-front-product-red.png',
         title: 'iPhone SE',
         price: 430),
     Product(
         image:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-3-202209?wid=728&hei=666&fmt=png-alpha&.v=1662055813794',
+            'https://static.doji.co/product/medias/smartphones/apple/iphone-14/1-front-back-blue.png',
         title: 'iPhone 14',
         price: 700),
     Product(
         image:
-            'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-4-202309?wid=728&hei=666&fmt=png-alpha&.v=1693011169045',
+            'https://static.doji.co/product/medias/smartphones/apple/iphone-15/1-front-back-blue.png',
         title: 'iPhone 15',
         price: 800),
   ];
