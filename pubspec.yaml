@@ -38,6 +38,9 @@ dependencies:
   google_fonts: ^6.2.0
   logger: ^2.2.0
   carousel_slider: ^4.2.1
+  rename: ^3.0.2
+  firebase_core: ^2.30.1
+  firebase_auth: ^4.19.4
 
 dev_dependencies:
   flutter_test:

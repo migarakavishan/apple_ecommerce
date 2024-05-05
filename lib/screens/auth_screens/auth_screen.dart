@@ -1,5 +1,4 @@
-import 'package:apple_ecommerce/screens/homepage/homepage.dart';
-import 'package:apple_ecommerce/utils/custom_navigator.dart';
+import 'package:apple_ecommerce/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +14,8 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   String type = 'signup';
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +73,15 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const CustomTextField(
+                  CustomTextField(
                     hint: 'Email',
                     prefixIcon: Icons.email,
+                    controller: _emailController,
                   ),
                   type != 'forgot'
-                      ? const CustomTextField(
+                      ? CustomTextField(
                           hint: 'Password',
+                          controller: _passwordController,
                           prefixIcon: Icons.password_rounded,
                           isPassword: true,
                         )
@@ -116,7 +119,8 @@ class _AuthScreenState extends State<AuthScreen> {
                             ? 'Sign In'
                             : 'Send Reset Email',
                     ontap: () {
-                      CustomNavigator.push(context, const HomePage());
+                      AuthController.createUserAccount(
+                          _emailController.text, _passwordController.text);
                     },
                   ),
                   CustomButton(
