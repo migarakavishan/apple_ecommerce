@@ -96,6 +96,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   setState(() {
                                     type = 'forgot';
                                   });
+                                  authStates.clearFields();
                                 },
                                 child: const Text(
                                   "Forgot Password?",
@@ -123,8 +124,10 @@ class _AuthScreenState extends State<AuthScreen> {
                       ontap: () {
                         if (type == 'signup') {
                           authStates.startSignUp(context);
-                        }else if (type == 'signin'){
+                        } else if (type == 'signin') {
                           authStates.startSignIn(context);
+                        } else if (type == 'forgot') {
+                          authStates.startSendPasswordResetEmail(context);
                         }
                       },
                     ),

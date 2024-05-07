@@ -53,4 +53,12 @@ class AuthScreenProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void startSendPasswordResetEmail(BuildContext context) {
+    if (_emailController.text.trim().length <= 4) {
+      CustomDialog.showDialog(context, title: 'Something went wrong', content: 'Please insert your email');
+    }
+    CustomDialog.showLoader();
+    AuthController.sendPasswordResetEmail(_emailController.text, context);
+  }
 }

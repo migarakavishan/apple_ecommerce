@@ -1,7 +1,9 @@
+import 'package:apple_ecommerce/providers/auth_screen_provider.dart';
 import 'package:apple_ecommerce/utils/custom_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 class AuthController {
   static Future<void> createUserAccount(
@@ -54,12 +56,30 @@ class AuthController {
     }
   }
 
-  static Future<void> signOutuser() async {
+  static Future<void> signOutuser(BuildContext context) async {
     try {
-      await FirebaseAuth.instance.signOut();
+      await FirebaseAuth.instance.signOut().then((value) {
+        Provider.of<AuthScreenProvider>(context, listen: false).clearFields();
+      });
+
       Logger().f('User Signout');
     } catch (error) {
       Logger().e(error);
+    }
+  }
+
+  static Future<void> sendPasswordResetEmail(
+      String email, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      Provider.of<AuthScreenProvider>(context, listen: false).clearFields();
+      CustomDialog.showDialog(context,
+          title: 'Success', content: 'Please check your emails');
+      CustomDialog.dismissLoader();
+    } catch (e) {
+      CustomDialog.showDialog(context,
+          title: 'Something went wrong', content: e.toString());
+      CustomDialog.dismissLoader();
     }
   }
 }
