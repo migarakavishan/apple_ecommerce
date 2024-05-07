@@ -1,5 +1,7 @@
 import 'package:apple_ecommerce/providers/auth_screen_provider.dart';
-import 'package:apple_ecommerce/screens/splash_screens/splash_screen.dart';
+import 'package:apple_ecommerce/providers/user_provider.dart';
+import 'package:apple_ecommerce/screens/auth_screens/auth_state_screen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -15,7 +17,8 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => AuthScreenProvider(),
-    )
+    ),
+    ChangeNotifierProvider(create: (context) => UserProvider())
   ], child: const MyApp()));
 }
 
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: const AuthStateScreen(),
       builder: EasyLoading.init(),
     );
   }

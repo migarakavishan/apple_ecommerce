@@ -1,5 +1,4 @@
-import 'package:apple_ecommerce/screens/auth_screens/auth_screen.dart';
-import 'package:apple_ecommerce/screens/homepage/homepage.dart';
+import 'package:apple_ecommerce/screens/splash_screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,9 +19,13 @@ class AuthStateScreen extends StatelessWidget {
             return const SizedBox();
           }
           if (snapshot.data == null) {
-            return const AuthScreen();
+            return const SplashScreen(
+              type: 'authScreen',
+            );
           } else {
-            return const HomePage();
+            return const SplashScreen(
+              type: '',
+            );
           }
         },
       ),

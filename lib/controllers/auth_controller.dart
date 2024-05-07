@@ -1,3 +1,5 @@
+import 'package:apple_ecommerce/controllers/user_controller.dart';
+import 'package:apple_ecommerce/models/user_model.dart';
 import 'package:apple_ecommerce/providers/auth_screen_provider.dart';
 import 'package:apple_ecommerce/utils/custom_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,12 +9,13 @@ import 'package:provider/provider.dart';
 
 class AuthController {
   static Future<void> createUserAccount(
-      String email, String password, BuildContext context) async {
+      String email, String password, String name, BuildContext context) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) {
-        CustomDialog.dismissLoader();
+          .then((value) async {
+        UserModel user = UserModel(name: name, email: value.user!.email!, uid: value.user!.uid);
+        await UserController().saveUserData(user, context);
       });
     } on FirebaseAuthException catch (e) {
       CustomDialog.dismissLoader();
