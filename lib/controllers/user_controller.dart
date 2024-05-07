@@ -12,8 +12,10 @@ class UserController {
       await userCollection.doc(user.uid).set(user.toJson());
       CustomDialog.dismissLoader();
     } catch (e) {
-      CustomDialog.showDialog(context,
+      if (context.mounted){
+        CustomDialog.showDialog(context,
           title: 'Something went wrong', content: e.toString());
+      }
       CustomDialog.dismissLoader();
     }
   }

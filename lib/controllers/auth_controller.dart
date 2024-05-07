@@ -14,22 +14,27 @@ class AuthController {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) async {
-        UserModel user = UserModel(name: name, email: value.user!.email!, uid: value.user!.uid);
+        UserModel user = UserModel(
+            name: name, email: value.user!.email!, uid: value.user!.uid);
         await UserController().saveUserData(user, context);
       });
     } on FirebaseAuthException catch (e) {
       CustomDialog.dismissLoader();
-      if (e.code == 'email-already-in-use') {
-        CustomDialog.showDialog(context,
-            title: 'Something went wrong', content: 'Email already in use');
-      } else if (e.code == 'invalid-email') {
-        CustomDialog.showDialog(context,
-            title: 'Something went wrong', content: 'Invalid Email Address');
+      if (context.mounted) {
+        if (e.code == 'email-already-in-use') {
+          CustomDialog.showDialog(context,
+              title: 'Something went wrong', content: 'Email already in use');
+        } else if (e.code == 'invalid-email') {
+          CustomDialog.showDialog(context,
+              title: 'Something went wrong', content: 'Invalid Email Address');
+        }
       }
     } catch (e) {
       CustomDialog.dismissLoader();
-      CustomDialog.showDialog(context,
-          title: 'Something went wrong', content: e.toString());
+      if (context.mounted) {
+        CustomDialog.showDialog(context,
+            title: 'Something went wrong', content: e.toString());
+      }
     }
   }
 
@@ -40,20 +45,22 @@ class AuthController {
           .signInWithEmailAndPassword(email: email, password: password);
       CustomDialog.dismissLoader();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        CustomDialog.showDialog(context,
-            title: 'Something went wrong',
-            content: 'No user found for that email.');
-        Logger().e('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        CustomDialog.showDialog(context,
-            title: 'Something went wrong',
-            content: 'Wrong password provided for that user.');
-        Logger().e('Wrong password provided for that user.');
-      } else if (e.code == 'invalid-email') {
-        CustomDialog.showDialog(context,
-            title: 'Something went wrong', content: 'Invalid email');
-        Logger().e('Invalid email');
+      if (context.mounted) {
+        if (e.code == 'user-not-found') {
+          CustomDialog.showDialog(context,
+              title: 'Something went wrong',
+              content: 'No user found for that email.');
+          Logger().e('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          CustomDialog.showDialog(context,
+              title: 'Something went wrong',
+              content: 'Wrong password provided for that user.');
+          Logger().e('Wrong password provided for that user.');
+        } else if (e.code == 'invalid-email') {
+          CustomDialog.showDialog(context,
+              title: 'Something went wrong', content: 'Invalid email');
+          Logger().e('Invalid email');
+        }
       }
       CustomDialog.dismissLoader();
     }
@@ -75,13 +82,17 @@ class AuthController {
       String email, BuildContext context) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      Provider.of<AuthScreenProvider>(context, listen: false).clearFields();
-      CustomDialog.showDialog(context,
-          title: 'Success', content: 'Please check your emails');
+      if (context.mounted) {
+        Provider.of<AuthScreenProvider>(context, listen: false).clearFields();
+        CustomDialog.showDialog(context,
+            title: 'Success', content: 'Please check your emails');
+      }
       CustomDialog.dismissLoader();
     } catch (e) {
-      CustomDialog.showDialog(context,
-          title: 'Something went wrong', content: e.toString());
+      if (context.mounted) {
+        CustomDialog.showDialog(context,
+            title: 'Something went wrong', content: e.toString());
+      }
       CustomDialog.dismissLoader();
     }
   }
