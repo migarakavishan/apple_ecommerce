@@ -15,6 +15,15 @@ class AuthScreenProvider extends ChangeNotifier {
       _confirmPasswordController;
   TextEditingController get nameController => _nameController;
 
+  String _splashState = 'authScreen';
+  String get splashState => _splashState; 
+
+  void setSpalshState(String type){
+    _splashState = type;
+    notifyListeners();
+  }
+
+
   void startSignUp(BuildContext context) {
     if (_emailController.text.trim().isEmpty) {
       CustomDialog.showDialog(context,
@@ -26,14 +35,13 @@ class AuthScreenProvider extends ChangeNotifier {
     } else if (_passwordController.text != _confirmPasswordController.text) {
       CustomDialog.showDialog(context,
           title: 'Something went wrong', content: 'Password missmatch');
-    } else if (_nameController.text.trim().isEmpty){
+    } else if (_nameController.text.trim().isEmpty) {
       CustomDialog.showDialog(context,
           title: 'Something went wrong', content: 'Please insert your name');
-    }
-     else {
+    } else {
       CustomDialog.showLoader();
-      AuthController.createUserAccount(
-          _emailController.text, _passwordController.text, _nameController.text ,context);
+      AuthController.createUserAccount(_emailController.text,
+          _passwordController.text, _nameController.text, context);
     }
   }
 

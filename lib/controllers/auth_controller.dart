@@ -1,6 +1,6 @@
-import 'package:apple_ecommerce/controllers/user_controller.dart';
 import 'package:apple_ecommerce/models/user_model.dart';
 import 'package:apple_ecommerce/providers/auth_screen_provider.dart';
+import 'package:apple_ecommerce/providers/user_provider.dart';
 import 'package:apple_ecommerce/utils/custom_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +14,15 @@ class AuthController {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) async {
+        Logger().f('User Created');
+        
         UserModel user = UserModel(
             name: name, email: value.user!.email!, uid: value.user!.uid);
-        await UserController().saveUserData(user, context);
+        Provider.of<UserProvider>(context, listen: false).setUser(user);
+        Provider.of<AuthScreenProvider>(context, listen: false)
+            .setSpalshState('addData');
+        Logger().f('Splash State Set');
+        CustomDialog.dismissLoader();
       });
     } on FirebaseAuthException catch (e) {
       CustomDialog.dismissLoader();
@@ -43,6 +49,10 @@ class AuthController {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      if (context.mounted) {
+        Provider.of<AuthScreenProvider>(context, listen: false)
+            .setSpalshState('fetchData');
+      }
       CustomDialog.dismissLoader();
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
@@ -71,7 +81,10 @@ class AuthController {
       await FirebaseAuth.instance.signOut().then((value) {
         Provider.of<AuthScreenProvider>(context, listen: false).clearFields();
       });
-
+      if (context.mounted) {
+        Provider.of<AuthScreenProvider>(context, listen: false)
+            .setSpalshState('authScreen');
+      }
       Logger().f('User Signout');
     } catch (error) {
       Logger().e(error);
