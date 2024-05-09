@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/demo_data.dart';
+import '../../../../data/demo_data.dart';
 
 class NewSlider extends StatelessWidget {
   const NewSlider({

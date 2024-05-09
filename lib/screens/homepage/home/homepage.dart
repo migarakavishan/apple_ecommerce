@@ -1,3 +1,5 @@
+import 'package:apple_ecommerce/screens/homepage/profile/profile_view/profile_view.dart';
+import 'package:apple_ecommerce/utils/custom_navigator.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/categories.dart';
@@ -48,6 +50,9 @@ class _HomePageState extends State<HomePage> {
                         icon: Icons.emoji_people,
                         color: Colors.green,
                         bgColor: Colors.green.shade100,
+                        onTap: () {
+                          CustomNavigator.push(context, const ProfileView());
+                        },
                       ),
                       CustomIconButton(
                         text: 'Favorite',
@@ -80,5 +85,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

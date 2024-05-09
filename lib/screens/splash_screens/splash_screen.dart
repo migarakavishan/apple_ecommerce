@@ -1,6 +1,6 @@
 import 'package:apple_ecommerce/controllers/user_controller.dart';
 import 'package:apple_ecommerce/screens/auth_screens/auth_screen.dart';
-import 'package:apple_ecommerce/screens/homepage/homepage.dart';
+import 'package:apple_ecommerce/screens/homepage/home/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ? Future.delayed(const Duration(seconds: 3))
             : widget.type == 'addData'
                 ? UserController().saveUserData(context)
-                : Future.delayed(const Duration(seconds: 5)),
+                : UserController().fetchUserData(context),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
