@@ -1,6 +1,8 @@
 import 'package:apple_ecommerce/components/buttons/custom_button.dart';
+import 'package:apple_ecommerce/providers/user_provider.dart';
 import 'package:apple_ecommerce/screens/auth_screens/widgets/custom_text_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileUpdate extends StatelessWidget {
   const ProfileUpdate({super.key});
@@ -17,20 +19,54 @@ class ProfileUpdate extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              const CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage(
-                    'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png'),
-              ),
-              const CustomTextField(hint: 'Name', prefixIcon: Icons.person),
-              CustomButton(size: size, text: 'Update Profile'),
-            ],
-          ),
-        ),
+        child: Consumer<UserProvider>(builder: (context, userProvider, child) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(userProvider.user!.image)),
+                            shape: BoxShape.circle,
+                            color: Colors.grey),
+                      ),
+                      Align(
+                          alignment: Alignment.bottomRight,
+                          child: InkWell(
+                            onTap: () {
+                              
+                            },
+                            child: CircleAvatar(
+                              radius: 15,
+                              backgroundColor: Colors.black.withOpacity(0.5),
+                              child: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                                size: 15,
+                              ),
+                            ),
+                          ))
+                    ],
+                  ),
+                ),
+                CustomTextField(
+                  hint: 'Name',
+                  prefixIcon: Icons.person,
+                  controller: userProvider.nameUpdateController,
+                ),
+                CustomButton(size: size, text: 'Update Profile'),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
