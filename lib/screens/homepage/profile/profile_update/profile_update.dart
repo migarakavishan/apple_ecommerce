@@ -42,7 +42,7 @@ class ProfileUpdate extends StatelessWidget {
                           alignment: Alignment.bottomRight,
                           child: InkWell(
                             onTap: () {
-                              
+                              userProvider.pickProfilePicture();
                             },
                             child: CircleAvatar(
                               radius: 15,
