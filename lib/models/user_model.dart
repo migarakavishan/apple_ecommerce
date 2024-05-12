@@ -11,7 +11,7 @@ class UserModel {
       this.image = 'https://cdn-icons-png.flaticon.com/512/6188/6188625.png'});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(name: json['name'], email: json['email'], uid: json['uid']);
+    return UserModel(name: json['name'], email: json['email'], uid: json['uid'], image: json['image']);
   }
 
 

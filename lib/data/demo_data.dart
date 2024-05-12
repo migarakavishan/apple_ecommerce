@@ -18,30 +18,30 @@ class DemoData {
   ];
 
   static List<Product> products = [
-    Product(
-        image:
-            'https://static.doji.co/product/medias/smartphones/apple/iphone-15-pro/1-front-back-natural-titanium.png',
-        title: 'iPhone 15 Pro',
-        price: 999),
-    Product(
-        image:
-            'https://static.doji.co/product/medias/smartphones/apple/iphone-13/back_front-blue.png',
-        title: 'iPhone 13',
-        price: 860),
-    Product(
-        image:
-            'https://static.doji.co/product/medias/smartphones/apple/iphone-se-(2020)/1-front-product-red.png',
-        title: 'iPhone SE',
-        price: 430),
-    Product(
-        image:
-            'https://static.doji.co/product/medias/smartphones/apple/iphone-14/1-front-back-blue.png',
-        title: 'iPhone 14',
-        price: 700),
-    Product(
-        image:
-            'https://static.doji.co/product/medias/smartphones/apple/iphone-15/1-front-back-blue.png',
-        title: 'iPhone 15',
-        price: 800),
+    // Product(
+    //     image:
+    //         'https://static.doji.co/product/medias/smartphones/apple/iphone-15-pro/1-front-back-natural-titanium.png',
+    //     name: 'iPhone 15 Pro',
+    //     price: 999),
+    // Product(
+    //     image:
+    //         'https://static.doji.co/product/medias/smartphones/apple/iphone-13/back_front-blue.png',
+    //     name: 'iPhone 13',
+    //     price: 860),
+    // Product(
+    //     image:
+    //         'https://static.doji.co/product/medias/smartphones/apple/iphone-se-(2020)/1-front-product-red.png',
+    //     name: 'iPhone SE',
+    //     price: 430),
+    // Product(
+    //     image:
+    //         'https://static.doji.co/product/medias/smartphones/apple/iphone-14/1-front-back-blue.png',
+    //     name: 'iPhone 14',
+    //     price: 700),
+    // Product(
+    //     image:
+    //         'https://static.doji.co/product/medias/smartphones/apple/iphone-15/1-front-back-blue.png',
+    //     name: 'iPhone 15',
+    //     price: 800),
   ];
 }

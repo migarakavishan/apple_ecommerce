@@ -27,12 +27,11 @@ class ProductGrid extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: DemoData.products.length,
-          gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.92,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 5),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.92,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 5),
           itemBuilder: (context, index) {
             return SizedBox(
               height: 200,
@@ -61,7 +60,7 @@ class ProductGrid extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          DemoData.products[index].title,
+                          DemoData.products[index].name,
                           style: const TextStyle(color: Colors.white),
                         ),
                         Text(

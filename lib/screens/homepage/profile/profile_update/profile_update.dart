@@ -33,8 +33,15 @@ class ProfileUpdate extends StatelessWidget {
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(userProvider.user!.image)),
+                            image: userProvider.pickedImage == null
+                                ? DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        NetworkImage(userProvider.user!.image))
+                                : DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        FileImage(userProvider.pickedImage!)),
                             shape: BoxShape.circle,
                             color: Colors.grey),
                       ),
@@ -62,7 +69,13 @@ class ProfileUpdate extends StatelessWidget {
                   prefixIcon: Icons.person,
                   controller: userProvider.nameUpdateController,
                 ),
-                CustomButton(size: size, text: 'Update Profile'),
+                CustomButton(
+                  size: size,
+                  text: 'Update Profile',
+                  ontap: () {
+                    userProvider.startUserUpdate(context);
+                  },
+                ),
               ],
             ),
           );

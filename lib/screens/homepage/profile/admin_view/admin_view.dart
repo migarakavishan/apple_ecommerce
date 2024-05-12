@@ -1,6 +1,10 @@
 import 'package:apple_ecommerce/components/buttons/custom_button.dart';
+import 'package:apple_ecommerce/data/demo_data.dart';
+import 'package:apple_ecommerce/providers/product_provider.dart';
 import 'package:apple_ecommerce/screens/auth_screens/widgets/custom_text_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class AdminView extends StatelessWidget {
   const AdminView({super.key});
@@ -15,36 +19,75 @@ class AdminView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Add New Product",
-              style: TextStyle(
-                  color: Colors.grey.shade800,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 22),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            const CircleAvatar(
-              radius: 70,
-              child: Icon(Icons.add),
-            ),
-            const CustomTextField(
-                hint: 'Product Name', prefixIcon: Icons.shopping_cart_rounded),
-            const CustomTextField(
-                hint: 'Description', prefixIcon: Icons.description),
-            const CustomTextField(
-                hint: 'Price', prefixIcon: Icons.price_change),
-            const CustomTextField(
-                hint: 'Quntity', prefixIcon: Icons.production_quantity_limits),
-            const SizedBox(
-              height: 15,
-            ),
-            CustomButton(size: size, text: 'Add Product'),
-          ],
+        child: SingleChildScrollView(
+          child: Consumer<ProductProvider>(
+              builder: (context, productProvider, child) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Add New Product",
+                  style: TextStyle(
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const CircleAvatar(
+                  radius: 70,
+                  child: Icon(Icons.add),
+                ),
+                CustomTextField(
+                    controller: productProvider.nameController,
+                    hint: 'Product Name',
+                    prefixIcon: Icons.shopping_cart_rounded),
+                CustomTextField(
+                    controller: productProvider.descriptionController,
+                    hint: 'Description',
+                    prefixIcon: Icons.description),
+                CustomTextField(
+                  controller: productProvider.priceController,
+                  hint: 'Price',
+                  prefixIcon: Icons.price_change,
+                  textInputType: TextInputType.number,
+                ),
+                CustomTextField(
+                    controller: productProvider.quantityController,
+                    textInputType: TextInputType.number,
+                    hint: 'Quntity',
+                    prefixIcon: Icons.production_quantity_limits),
+                const Text(
+                  'Select Product Category',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                        DemoData.categories.length,
+                        (index) => Padding(
+                              padding: const EdgeInsets.only(left: 2, right: 2),
+                              child: InkWell(
+                                onTap: () {
+                                  productProvider.setSelectCategory(DemoData.categories[index].name);
+                                },
+                                child: Chip(
+                                  backgroundColor: productProvider.selectedCategory! == DemoData.categories[index].name ? Colors.blue : Colors.white,
+                                    label:
+                                        Text(DemoData.categories[index].name, style: TextStyle(color: productProvider.selectedCategory! == DemoData.categories[index].name ? Colors.white : Colors.black),)),
+                              ),
+                            )),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                CustomButton(size: size, text: 'Add Product'),
+              ],
+            );
+          }),
         ),
       ),
     );
