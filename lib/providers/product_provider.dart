@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:apple_ecommerce/utils/custom_image_picker.dart';
 import 'package:flutter/material.dart';
 
 class ProductProvider extends ChangeNotifier {
@@ -23,6 +24,11 @@ class ProductProvider extends ChangeNotifier {
 
   void setSelectCategory(String category) {
     _selectedCategory = category;
+    notifyListeners();
+  }
+
+  Future<void> pickProductImage() async {
+    _pickedImage = await CustomImagePicker().pickImage();
     notifyListeners();
   }
 }

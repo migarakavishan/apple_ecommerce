@@ -3,7 +3,6 @@ import 'package:apple_ecommerce/data/demo_data.dart';
 import 'package:apple_ecommerce/providers/product_provider.dart';
 import 'package:apple_ecommerce/screens/auth_screens/widgets/custom_text_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class AdminView extends StatelessWidget {
@@ -35,10 +34,30 @@ class AdminView extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                const CircleAvatar(
-                  radius: 70,
-                  child: Icon(Icons.add),
-                ),
+                productProvider.pickedImage == null
+                    ? GestureDetector(
+                        onTap: () {
+                          productProvider.pickProductImage();
+                        },
+                        child: const CircleAvatar(
+                          radius: 70,
+                          child: Icon(Icons.add),
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          Image(
+                            image: FileImage(productProvider.pickedImage!),
+                            height: 140,
+                            fit: BoxFit.fitHeight,
+                          ),
+                          FilledButton(
+                              onPressed: () {
+                                productProvider.pickProductImage();
+                              },
+                              child: const Text('Change Image'))
+                        ],
+                      ),
                 CustomTextField(
                     controller: productProvider.nameController,
                     hint: 'Product Name',
@@ -71,12 +90,25 @@ class AdminView extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 2, right: 2),
                               child: InkWell(
                                 onTap: () {
-                                  productProvider.setSelectCategory(DemoData.categories[index].name);
+                                  productProvider.setSelectCategory(
+                                      DemoData.categories[index].name);
                                 },
                                 child: Chip(
-                                  backgroundColor: productProvider.selectedCategory! == DemoData.categories[index].name ? Colors.blue : Colors.white,
-                                    label:
-                                        Text(DemoData.categories[index].name, style: TextStyle(color: productProvider.selectedCategory! == DemoData.categories[index].name ? Colors.white : Colors.black),)),
+                                    backgroundColor:
+                                        productProvider.selectedCategory ==
+                                                DemoData.categories[index].name
+                                            ? Colors.blue
+                                            : Colors.white,
+                                    label: Text(
+                                      DemoData.categories[index].name,
+                                      style: TextStyle(
+                                          color: productProvider
+                                                      .selectedCategory ==
+                                                  DemoData
+                                                      .categories[index].name
+                                              ? Colors.white
+                                              : Colors.black),
+                                    )),
                               ),
                             )),
                   ),
