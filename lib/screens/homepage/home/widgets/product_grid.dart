@@ -1,6 +1,6 @@
+import 'package:apple_ecommerce/controllers/product_controller.dart';
+import 'package:apple_ecommerce/models/product_model.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../data/demo_data.dart';
 
 class ProductGrid extends StatelessWidget {
   const ProductGrid({
@@ -23,61 +23,73 @@ class ProductGrid extends StatelessWidget {
           'Take a look at what’s new, right now.',
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
         ),
-        GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: DemoData.products.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.92,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 5),
-          itemBuilder: (context, index) {
-            return SizedBox(
-              height: 200,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 130,
-                      decoration: BoxDecoration(
-                          color: Colors.black87,
-                          borderRadius: BorderRadius.circular(25)),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Image.network(
-                      DemoData.products[index].image,
-                      height: 150,
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+        FutureBuilder(
+            future: ProductController().fetchAllProducts(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircleAvatar();
+              }
+              if (snapshot.hasError) {
+                return const Text('Something went wrong');
+              }
+
+              List<Product> products = snapshot.data!;
+              return GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: products.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.92,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 5),
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    height: 200,
+                    child: Stack(
                       children: [
-                        Text(
-                          DemoData.products[index].name,
-                          style: const TextStyle(color: Colors.white),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 130,
+                            decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(25)),
+                          ),
                         ),
-                        Text(
-                          '\$ ${DemoData.products[index].price}',
-                          style: const TextStyle(color: Colors.grey),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Image.network(
+                            products[index].image,
+                            height: 150,
+                            fit: BoxFit.fitHeight,
+                          ),
                         ),
-                        const SizedBox(
-                          height: 5,
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                products[index].name,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                '\$ ${products[index].price}',
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+                  );
+                },
+              );
+            }),
       ],
     );
   }

@@ -116,7 +116,13 @@ class AdminView extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                CustomButton(size: size, text: 'Add Product'),
+                CustomButton(
+                  size: size,
+                  text: 'Add Product',
+                  ontap: () {
+                    productProvider.startAddProduct(context);
+                  },
+                ),
               ],
             );
           }),

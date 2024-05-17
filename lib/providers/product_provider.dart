@@ -1,5 +1,9 @@
 import 'dart:io';
 
+import 'package:apple_ecommerce/controllers/product_controller.dart';
+import 'package:apple_ecommerce/controllers/stroage_controller.dart';
+import 'package:apple_ecommerce/models/product_model.dart';
+import 'package:apple_ecommerce/utils/custom_dialog.dart';
 import 'package:apple_ecommerce/utils/custom_image_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +33,58 @@ class ProductProvider extends ChangeNotifier {
 
   Future<void> pickProductImage() async {
     _pickedImage = await CustomImagePicker().pickImage();
+    notifyListeners();
+  }
+
+  Future<void> startAddProduct(BuildContext context) async {
+    if (_pickedImage == null) {
+      CustomDialog.showDialog(context,
+          title: 'Please try again',
+          content: 'Please select your product image');
+    } else if (_nameController.text.trim().isEmpty) {
+      CustomDialog.showDialog(context,
+          title: 'Please try again',
+          content: 'Please insert your product name');
+    } else if (_descriptionController.text.trim().isEmpty) {
+      CustomDialog.showDialog(context,
+          title: 'Please try again',
+          content: 'Please insert your product description');
+    } else if (_priceController.text.trim().isEmpty) {
+      CustomDialog.showDialog(context,
+          title: 'Please try again',
+          content: 'Please insert your product price');
+    } else if (_quantityController.text.trim().isEmpty) {
+      CustomDialog.showDialog(context,
+          title: 'Please try again',
+          content: 'Please enter your product quantity');
+    } else if (_selectedCategory == null) {
+      CustomDialog.showDialog(context,
+          title: 'Please try again', content: 'Please select product category');
+    } else {
+      CustomDialog.showLoader();
+      String imageUrl = await StroageController.uploadImage(
+          _pickedImage!, 'Product Images/$_selectedCategory');
+      Product product = Product(
+          image: imageUrl,
+          price: double.parse(_priceController.text),
+          description: _descriptionController.text,
+          name: _nameController.text,
+          quantity: int.parse(_quantityController.text),
+          category: _selectedCategory!);
+
+      if (context.mounted) {
+        ProductController().addProduct(product, context);
+      }
+    }
+  }
+
+  void clearProductData() {
+    _pickedImage = null;
+    _nameController.clear();
+    _descriptionController.clear();
+    _priceController.clear();
+    _quantityController.clear();
+    _selectedCategory = null;
     notifyListeners();
   }
 }
