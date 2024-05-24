@@ -16,13 +16,12 @@ class AuthScreenProvider extends ChangeNotifier {
   TextEditingController get nameController => _nameController;
 
   String _splashState = 'authScreen';
-  String get splashState => _splashState; 
+  String get splashState => _splashState;
 
-  void setSpalshState(String type){
+  void setSplashState(String type) {
     _splashState = type;
     notifyListeners();
   }
-
 
   void startSignUp(BuildContext context) {
     if (_emailController.text.trim().isEmpty) {

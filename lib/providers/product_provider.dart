@@ -26,6 +26,32 @@ class ProductProvider extends ChangeNotifier {
   String? _selectedCategory;
   String? get selectedCategory => _selectedCategory;
 
+  int _selectedQuantity = 1;
+  int get selectedQuantity => _selectedQuantity;
+
+  Product? _selectedProduct;
+  Product? get selectedProduct => _selectedProduct;
+
+  void setSelectedProduct(Product product) {
+    _selectedProduct = product;
+    _selectedQuantity = 1;
+    notifyListeners();
+  }
+
+  void incrementQuantity() {
+    if (_selectedQuantity < _selectedProduct!.quantity) {
+      _selectedQuantity++;
+      notifyListeners();
+    }
+  }
+
+  void decrementQuantity() {
+    if (_selectedQuantity != 1) {
+      _selectedQuantity--;
+      notifyListeners();
+    }
+  }
+
   void setSelectCategory(String category) {
     _selectedCategory = category;
     notifyListeners();
@@ -62,7 +88,7 @@ class ProductProvider extends ChangeNotifier {
           title: 'Please try again', content: 'Please select product category');
     } else {
       CustomDialog.showLoader();
-      String imageUrl = await StroageController.uploadImage(
+      String imageUrl = await StorageController.uploadImage(
           _pickedImage!, 'Product Images/$_selectedCategory');
       Product product = Product(
           image: imageUrl,

@@ -15,12 +15,12 @@ class AuthController {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) async {
         Logger().f('User Created');
-        
+
         UserModel user = UserModel(
             name: name, email: value.user!.email!, uid: value.user!.uid);
         Provider.of<UserProvider>(context, listen: false).setUser(user);
         Provider.of<AuthScreenProvider>(context, listen: false)
-            .setSpalshState('addData');
+            .setSplashState('addData');
         Logger().f('Splash State Set');
         CustomDialog.dismissLoader();
       });
@@ -51,7 +51,7 @@ class AuthController {
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
         Provider.of<AuthScreenProvider>(context, listen: false)
-            .setSpalshState('fetchData');
+            .setSplashState('fetchData');
       }
       CustomDialog.dismissLoader();
     } on FirebaseAuthException catch (e) {
@@ -83,7 +83,7 @@ class AuthController {
       });
       if (context.mounted) {
         Provider.of<AuthScreenProvider>(context, listen: false)
-            .setSpalshState('authScreen');
+            .setSplashState('authScreen');
       }
       Logger().f('User Signout');
     } catch (error) {

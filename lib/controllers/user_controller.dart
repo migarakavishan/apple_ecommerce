@@ -53,7 +53,7 @@ class UserController {
     try {
       if (image != null) {
         final imageUrl =
-            await StroageController.uploadImage(image, 'Profile Pictures');
+            await StorageController.uploadImage(image, 'Profile Pictures');
         Logger().f(imageUrl);
         await userCollection.doc(uid).update({
           'name': name,

@@ -7,7 +7,8 @@ class CustomButton extends StatelessWidget {
       required this.text,
       this.bgColor = Colors.black,
       this.fontColor = Colors.white,
-      this.borderColor = Colors.black, this.ontap});
+      this.borderColor = Colors.black,
+      this.ontap});
 
   final Size size;
   final String text;
@@ -24,8 +25,8 @@ class CustomButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: Container(
-            width: size.width * 0.9,
-            height: 55,
+            width: size.width,
+            height: 50,
             decoration: BoxDecoration(
                 border: Border.all(color: borderColor),
                 color: bgColor,
