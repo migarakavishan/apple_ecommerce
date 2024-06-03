@@ -38,4 +38,17 @@ class ProductController {
     }
     return products;
   }
+
+  Future<List<Product>> fetchSelectedCategory(String category) async {
+    List<Product> products = [];
+    final data =
+        await productCollection.where('category', isEqualTo: category).get();
+    final productMapList = data.docs;
+
+    for (var product in productMapList) {
+      Product item = Product.fromJson(product.data() as Map<String, dynamic>);
+      products.add(item);
+    }
+    return products;
+  }
 }

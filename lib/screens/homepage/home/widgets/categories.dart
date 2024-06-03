@@ -1,4 +1,6 @@
 import 'package:apple_ecommerce/providers/user_provider.dart';
+import 'package:apple_ecommerce/screens/homepage/category_view/category_view.dart';
+import 'package:apple_ecommerce/utils/custom_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,36 +46,46 @@ class Categories extends StatelessWidget {
                   DemoData.categories.length,
                   (index) => Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: SizedBox(
-                          width: 120,
-                          height: 100,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Container(
-                                  width: 120,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey.shade700,
-                                      borderRadius: BorderRadius.circular(20)),
+                        child: GestureDetector(
+                          onTap: () {
+                            CustomNavigator.push(
+                                context,
+                                CategoryView(
+                                  category: DemoData.categories[index].name,
+                                ));
+                          },
+                          child: SizedBox(
+                            width: 120,
+                            height: 100,
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    width: 120,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.shade700,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                  ),
                                 ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Column(
-                                  children: [
-                                    Image.asset(
-                                        DemoData.categories[index].image),
-                                    Text(
-                                      DemoData.categories[index].name,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                          DemoData.categories[index].image),
+                                      Text(
+                                        DemoData.categories[index].name,
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       )),
