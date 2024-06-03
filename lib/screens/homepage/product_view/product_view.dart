@@ -3,6 +3,8 @@ import 'package:apple_ecommerce/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../providers/order_provider.dart';
+
 class ProductView extends StatelessWidget {
   const ProductView({super.key, required this.product});
 
@@ -174,28 +176,43 @@ class ProductView extends StatelessWidget {
               ],
             );
           }),
-          Positioned(
-            bottom: 8,
-            left: 1,
-            right: 1,
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: size.width * 0.85,
-                  height: 60,
-                  decoration: BoxDecoration(
-                      color: Colors.green.shade900,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: const Center(
-                      child: Text(
-                    'Add to Cart',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  )),
-                )),
-          )
+          Consumer<OrderProvider>(builder: (context, orderProvider, child) {
+            return Positioned(
+              bottom: 8,
+              left: 1,
+              right: 1,
+              child: GestureDetector(
+                onTap: () {
+                  if (orderProvider.cartItems.contains(product)) {
+                    orderProvider.removeFromCart(product);
+                  } else {
+                    orderProvider.addToCart(product);
+                  }
+                },
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: size.width * 0.85,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: orderProvider.cartItems.contains(product)
+                              ? Colors.red.shade900
+                              : Colors.green.shade900,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Center(
+                          child: Text(
+                        orderProvider.cartItems.contains(product)
+                            ? 'Remove From Cart'
+                            : 'Add to Cart',
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    )),
+              ),
+            );
+          })
         ],
       ),
     );

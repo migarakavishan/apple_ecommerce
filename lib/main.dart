@@ -1,4 +1,5 @@
 import 'package:apple_ecommerce/providers/auth_screen_provider.dart';
+import 'package:apple_ecommerce/providers/order_provider.dart';
 import 'package:apple_ecommerce/providers/product_provider.dart';
 import 'package:apple_ecommerce/providers/user_provider.dart';
 import 'package:apple_ecommerce/screens/auth_screens/auth_state_screen.dart';
@@ -19,7 +20,8 @@ void main() async {
       create: (context) => AuthScreenProvider(),
     ),
     ChangeNotifierProvider(create: (context) => UserProvider()),
-    ChangeNotifierProvider(create: (context) => ProductProvider())
+    ChangeNotifierProvider(create: (context) => ProductProvider()),
+    ChangeNotifierProvider(create: (context) => OrderProvider())
   ], child: const MyApp()));
 }
 
