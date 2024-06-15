@@ -59,6 +59,10 @@ class _HomePageState extends State<HomePage> {
                         icon: Icons.favorite,
                         color: Colors.red,
                         bgColor: Colors.red.shade100,
+                        onTap: () {
+                          // CustomNavigator.push(
+                          //     context, const FavouriteScreen());
+                        },
                       ),
                       CustomIconButton(
                         text: 'My Orders',

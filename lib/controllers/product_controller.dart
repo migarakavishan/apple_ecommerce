@@ -27,7 +27,7 @@ class ProductController {
     }
   }
 
-  Future<List<Product>> fetchAllProducts() async {
+  Future<List<Product>> fetchAllProducts(BuildContext context) async {
     List<Product> products = [];
     final data = await productCollection.get();
     final productMapList = data.docs;
@@ -35,6 +35,9 @@ class ProductController {
     for (var product in productMapList) {
       Product item = Product.fromJson(product.data() as Map<String, dynamic>);
       products.add(item);
+    }
+    if (context.mounted) {
+      Provider.of<ProductProvider>(context, listen: false).setProduct(products);
     }
     return products;
   }
@@ -49,6 +52,7 @@ class ProductController {
       Product item = Product.fromJson(product.data() as Map<String, dynamic>);
       products.add(item);
     }
+
     return products;
   }
 }

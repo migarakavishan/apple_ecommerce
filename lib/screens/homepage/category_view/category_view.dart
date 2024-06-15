@@ -29,7 +29,8 @@ class CategoryView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder(
-            future: ProductController().fetchSelectedCategory(category),
+            future:
+                ProductController().fetchSelectedCategory(category),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircleAvatar();
@@ -37,7 +38,7 @@ class CategoryView extends StatelessWidget {
               if (snapshot.hasError) {
                 return const Text('Something went wrong');
               }
-        
+
               List<Product> products = snapshot.data!;
               return GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),

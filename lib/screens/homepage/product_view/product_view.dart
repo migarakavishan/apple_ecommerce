@@ -44,9 +44,26 @@ class ProductView extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
+                                  backgroundColor: WidgetStatePropertyAll(
                                       Colors.grey.shade600)),
                             ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            onPressed: () {},
+                            iconSize: 30,
+                            icon: const Icon(
+                              Icons.favorite,
+                              color: Colors.white,
+                            ),
+                            style: ButtonStyle(
+                                backgroundColor: WidgetStatePropertyAll(
+                                    Colors.grey.shade600)),
                           ),
                         ),
                       ),

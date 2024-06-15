@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:apple_ecommerce/controllers/product_controller.dart';
 import 'package:apple_ecommerce/controllers/stroage_controller.dart';
 import 'package:apple_ecommerce/providers/user_provider.dart';
 import 'package:apple_ecommerce/utils/custom_dialog.dart';
@@ -37,7 +38,11 @@ class UserController {
       // Logger().f(uid);
       await Future.delayed(const Duration(seconds: 2));
       final userData = await userCollection.doc(uid).get();
+      await ProductController().fetchAllProducts(context);
       // Logger().f(userData.data());
+      if (context.mounted) {
+        await ProductController().fetchAllProducts(context);
+      }
       UserModel user =
           UserModel.fromJson(userData.data() as Map<String, dynamic>);
       if (context.mounted) {
@@ -84,5 +89,10 @@ class UserController {
       }
       Logger().e(e);
     }
+  }
+
+  Future<void> addToFavorite(List<String> favorite) async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    await userCollection.doc(uid).update({'favorite': favorite});
   }
 }

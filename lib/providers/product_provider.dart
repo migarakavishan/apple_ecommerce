@@ -32,6 +32,14 @@ class ProductProvider extends ChangeNotifier {
   Product? _selectedProduct;
   Product? get selectedProduct => _selectedProduct;
 
+  List<Product> _products = [];
+  List<Product> get products => _products;
+
+  void setProduct(List<Product> productData) {
+    _products = productData;
+    notifyListeners();
+  }
+
   void setSelectedProduct(Product product) {
     _selectedProduct = product;
     _selectedQuantity = 1;
