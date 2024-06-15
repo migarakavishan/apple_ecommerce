@@ -38,15 +38,15 @@ class UserController {
       // Logger().f(uid);
       await Future.delayed(const Duration(seconds: 2));
       final userData = await userCollection.doc(uid).get();
-      await ProductController().fetchAllProducts(context);
-      // Logger().f(userData.data());
-      if (context.mounted) {
-        await ProductController().fetchAllProducts(context);
-      }
       UserModel user =
           UserModel.fromJson(userData.data() as Map<String, dynamic>);
       if (context.mounted) {
         Provider.of<UserProvider>(context, listen: false).setUser(user);
+      
+      // Logger().f(userData.data());
+      if (context.mounted) {
+        await ProductController().fetchAllProducts(context);
+      }
       }
     } catch (e) {
       Logger().e(e);

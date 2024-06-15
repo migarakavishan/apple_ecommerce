@@ -1,5 +1,6 @@
 import 'package:apple_ecommerce/models/product_model.dart';
 import 'package:apple_ecommerce/providers/product_provider.dart';
+import 'package:apple_ecommerce/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,8 @@ class ProductView extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Consumer<ProductProvider>(builder: (context, productProvider, child) {
+          Consumer2<ProductProvider, UserProvider>(
+              builder: (context, productProvider, userProvider, child) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -55,11 +57,16 @@ class ProductView extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              productProvider.manageFavoriteItems(context);
+                            },
                             iconSize: 30,
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.favorite,
-                              color: Colors.white,
+                              color: userProvider.user!.favorite!
+                                      .contains(product.id!)
+                                  ? Colors.red
+                                  : Colors.white,
                             ),
                             style: ButtonStyle(
                                 backgroundColor: WidgetStatePropertyAll(

@@ -1,3 +1,4 @@
+import 'package:apple_ecommerce/screens/homepage/favorite/favorite.dart';
 import 'package:apple_ecommerce/screens/homepage/profile/profile_view/profile_view.dart';
 import 'package:apple_ecommerce/utils/custom_navigator.dart';
 import 'package:flutter/material.dart';
@@ -60,8 +61,8 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.red,
                         bgColor: Colors.red.shade100,
                         onTap: () {
-                          // CustomNavigator.push(
-                          //     context, const FavouriteScreen());
+                          CustomNavigator.push(
+                              context, const FavouriteScreen());
                         },
                       ),
                       CustomIconButton(

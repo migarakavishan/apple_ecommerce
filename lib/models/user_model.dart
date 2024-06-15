@@ -18,8 +18,10 @@ class UserModel {
         email: json['email'],
         uid: json['uid'],
         favorite: json['favorite'] == null
-            ? null
-            : (json['favorite'] as List<String>),
+            ? []
+            : (json['favorite'] as List<dynamic>)
+                .map((id) => id.toString())
+                .toList(),
         image: json['image']);
   }
 

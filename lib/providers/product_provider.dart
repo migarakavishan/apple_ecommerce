@@ -2,10 +2,16 @@ import 'dart:io';
 
 import 'package:apple_ecommerce/controllers/product_controller.dart';
 import 'package:apple_ecommerce/controllers/stroage_controller.dart';
+import 'package:apple_ecommerce/controllers/user_controller.dart';
 import 'package:apple_ecommerce/models/product_model.dart';
+import 'package:apple_ecommerce/providers/user_provider.dart';
 import 'package:apple_ecommerce/utils/custom_dialog.dart';
 import 'package:apple_ecommerce/utils/custom_image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user_model.dart';
 
 class ProductProvider extends ChangeNotifier {
   File? _pickedImage;
@@ -31,6 +37,9 @@ class ProductProvider extends ChangeNotifier {
 
   Product? _selectedProduct;
   Product? get selectedProduct => _selectedProduct;
+
+  List<Product> _favouriteProducts = [];
+  List<Product> get favouriteProducts => _favouriteProducts;
 
   List<Product> _products = [];
   List<Product> get products => _products;
@@ -120,5 +129,27 @@ class ProductProvider extends ChangeNotifier {
     _quantityController.clear();
     _selectedCategory = null;
     notifyListeners();
+  }
+
+  void manageFavoriteItems(BuildContext context) {
+    UserModel user = Provider.of<UserProvider>(context, listen: false).user!;
+    List<String> favorite = user.favorite == null ? [] : user.favorite!;
+
+    if (favorite.contains(_selectedProduct!.id)) {
+      favorite.remove(_selectedProduct!.id);
+      _favouriteProducts.remove(_selectedProduct);
+    } else {
+      favorite.add(_selectedProduct!.id!);
+      _favouriteProducts.add(_selectedProduct!);
+    }
+    user.favorite = favorite;
+    notifyListeners();
+    UserController().addToFavorite(favorite);
+  }
+
+  void setFavoriteProducts(List<Product> products) {
+    _favouriteProducts = products;
+    notifyListeners();
+    Logger().f(products.length);
   }
 }
